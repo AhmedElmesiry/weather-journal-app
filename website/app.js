@@ -10,7 +10,7 @@ const url="https://api.openweathermap.org/data/2.5/weather?zip="
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
 
 document.getElementById("generate").addEventListener('click', startApp);
 
@@ -58,16 +58,17 @@ const postData =async (url="" , data ={})=>{
     }
 }
 
-const update= async ()=>{
-    const req= await fetch('/getAll');
-    try{
-        const allData = await req.json();
-        document.getElementById("date").innerHTML= `Date : ${allData[0].date}`;
-        document.getElementById("temp").innerHTML= `Temperature : ${allData[0].temp}`;
-        document.getElementById("content").innerHTML= `I'm feeling : ${allData[0].content}`;
+//Function to update user interface
+const updateUI = async () => {
 
+    const request = await fetch('/all');
+    try {
+    const allData = await request.json();
+    document.getElementById('date').innerHTML = allData.date;
+    document.getElementById('temp').innerHTML = allData.temp;
+    document.getElementById('content').innerHTML = allData.content;
+    
+    } catch (error) {
+    console.log("error", error);
     }
-    catch(error){
-        console.log("error",error);
     }
-}

@@ -34,9 +34,13 @@ app.get('/getAll', function(req,res){
 })
 
 //post data
-app.post('/dataAdd', function(req,res){
-    projectData=req.body;
-    res.status(200).send(projectData);
-    console.log(projectData);
+app.post('/addData', addData);
 
-})
+function addData(req,res){
+
+projectData['date'] = req.body.date;
+projectData['temperature'] = req.body.temperature;
+projectData['feelings'] = req.body.feelings;
+
+res.send(projectData);
+}
